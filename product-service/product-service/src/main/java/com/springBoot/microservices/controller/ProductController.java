@@ -3,6 +3,7 @@ package com.springBoot.microservices.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,22 +18,40 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/product")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductRepository productRepository;
 
+    public ProductController(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
+
+    // @GetMapping
+    // @ResponseStatus(HttpStatus.OK)
+    // public List<Product> findAll(){
+    //     return productRepository.findAll();
+
+    // }
+    
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Product> findAll(){
-        return productRepository.findAll();
-
+    public ResponseEntity <List<Product>> findAll(){
+        return ResponseEntity.ok(productRepository.findAll());
     }
 
+    // @PostMapping
+    // @ResponseStatus(HttpStatus.CREATED)
+    // public void createProduct(@RequestBody Product product){
+    //     productRepository.save(product);
+    // }
+    
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody Product product){
-        productRepository.save(product);
+    public ResponseEntity createProduct(@RequestBody Product product){
+        productRepository.insert(product);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+
     }
+     
+
     
 }
