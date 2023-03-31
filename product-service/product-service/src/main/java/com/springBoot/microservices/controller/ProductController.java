@@ -3,18 +3,14 @@ package com.springBoot.microservices.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.springBoot.microservices.dto.ProductRequest;
 import com.springBoot.microservices.dto.ProductResponse;
-import com.springBoot.microservices.model.Product;
-import com.springBoot.microservices.repository.ProductRepository;
 import com.springBoot.microservices.service.ProductService;
 
 //import lombok.RequiredArgsConstructor;
@@ -24,11 +20,9 @@ import com.springBoot.microservices.service.ProductService;
 //@RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductRepository productRepository;
     private final ProductService productService;
 
-    public ProductController(ProductRepository productRepository, ProductService productService){
-        this.productRepository = productRepository;
+    public ProductController( ProductService productService){
         this.productService = productService;
     }
 
@@ -36,14 +30,8 @@ public class ProductController {
     
     @GetMapping
     public  List<ProductResponse> getAllProducts(){
-        List<Product> products = productRepository.findAll();
+        return productService.getAllProducts();
     }
-
-  private ProductResponse mapToProductResponse(Product product){
-    return ProductResponse.builder()
-                                    .id(product.getId())
-                                    .build();
-  }
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

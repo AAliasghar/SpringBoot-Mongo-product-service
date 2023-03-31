@@ -18,27 +18,25 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository){
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-
-    public void createProduct(ProductRequest productRequest){
+    public void createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .price(productRequest.getPrice())
                 .build();
-            productRepository.save(product);
-            log.info("Product {} is saved.",product.getId());  //Getting product Id and save in place holder @Slf4j
+        productRepository.save(product);
+        log.info("Product {} is saved.", product.getId()); // Getting product Id and save in place holder @Slf4j
     }
-
 
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
 
-        products.stream().map(product -> mapToProductResponse(product))
-        return ;
+        return products.stream().map(product -> mapToProductResponse(product)).toList();
+
     }
 
     private ProductResponse mapToProductResponse(Product product) {
@@ -46,6 +44,7 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
+                .price(product.getPrice())
                 .build();
     }
 }
