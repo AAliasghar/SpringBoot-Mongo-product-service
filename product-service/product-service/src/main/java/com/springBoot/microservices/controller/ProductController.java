@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springBoot.microservices.dto.ProductRequest;
+import com.springBoot.microservices.dto.ProductResponse;
 import com.springBoot.microservices.model.Product;
 import com.springBoot.microservices.repository.ProductRepository;
 import com.springBoot.microservices.service.ProductService;
 
-import lombok.RequiredArgsConstructor;
+//import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/product")
@@ -34,11 +35,15 @@ public class ProductController {
   
     
     @GetMapping
-    public ResponseEntity <List<Product>> findAll(){
-        return ResponseEntity.ok(productRepository.findAll());
+    public  List<ProductResponse> getAllProducts(){
+        List<Product> products = productRepository.findAll();
     }
 
-  
+  private ProductResponse mapToProductResponse(Product product){
+    return ProductResponse.builder()
+                                    .id(product.getId())
+                                    .build();
+  }
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
