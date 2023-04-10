@@ -61,9 +61,7 @@ class ProductServiceApplicationTests {
 	private ProductRequest getProductRequest(){
 		return ProductRequest.builder()
 				.name("Samsung11")
-				.description("Samsung")
-				.price(BigDecimal.valueOf(1200))
-				.build();
+				
 	}
 
 }
