@@ -20,6 +20,7 @@ public class Order {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private int id;
     private String orderNumber;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderLineItems> orderLineItems;
     
 }
