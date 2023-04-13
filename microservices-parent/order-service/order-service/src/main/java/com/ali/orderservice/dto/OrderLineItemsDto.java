@@ -1,6 +1,6 @@
 package com.ali.orderservice.dto;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest {
+public class OrderLineItemsDto {
 
-    private List<OrderLineItemsDto> orderLineItemsDtoList;
+    private String skuCode;
+    private BigDecimal price;
+    private Integer quantity;
+
 }
