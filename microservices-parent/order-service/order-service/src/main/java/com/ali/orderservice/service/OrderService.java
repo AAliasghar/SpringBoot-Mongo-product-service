@@ -26,14 +26,15 @@ public class OrderService {
 
         List<OrderLineItems> orderLineItems = orderRequest.getOrderLineItemsDtoList()
                 .stream()
-                .map(orderLineItemsDto -> mapToDto(orderLineItemsDto))
+               // .map(orderLineItemsDto -> mapToDto(orderLineItemsDto))
+               .map(this::mapToDto)
                 .toList();
 
         order.setOrderLineItemsList(orderLineItems);
 
         orderRepository.save(order);
-
     }
+    
 
     private OrderLineItems mapToDto(OrderLineItemsDto orderLineItemsDto) {
         OrderLineItems orderLineItems = new OrderLineItems();
